@@ -1,0 +1,38 @@
+CREATE TABLE departments (
+    id INTEGER PRIMARY KEY,
+    name TEXT NOT NULL,
+    location TEXT
+);
+
+CREATE TABLE employees (
+    id INTEGER PRIMARY KEY,
+    name TEXT NOT NULL,
+    salary REAL,
+    department_id INTEGER,
+    FOREIGN KEY (department_id) REFERENCES departments(id)
+);
+
+INSERT INTO departments (id, name, location) VALUES (1, 'Direito', 'Palmas');
+INSERT INTO departments (id, name, location) VALUES (2, 'Agronomia', 'Goias');
+INSERT INTO departments (id, name, location) VALUES (3, 'Engenharia', 'Bahia');
+
+INSERT INTO employees (id, name, salary, department_id) VALUES (1, 'Jorge Lucas', 5000, 1);
+INSERT INTO employees (id, name, salary, department_id) VALUES (2, 'Selton', 7000, 2);
+INSERT INTO employees (id, name, salary, department_id) VALUES (3, 'Maicon', 6500, 2);
+INSERT INTO employees (id, name, salary, department_id) VALUES (4, 'Luisa', 4500, 3);
+INSERT INTO employees (id, name, salary, department_id) VALUES (5, 'Eva', 8000, 3);
+
+SELECT employees.name AS funcionario, departments.name AS departamento
+FROM employees
+JOIN departments ON employees.department_id = departments.id
+WHERE employees.salary > 6000;
+
+UPDATE employees
+SET salary = 5500
+WHERE name = 'Jorge Lucas';
+
+DELETE FROM employees
+WHERE name = 'Luisa';
+
+SELECT name AS funcionario, salary AS salario
+FROM employees;
